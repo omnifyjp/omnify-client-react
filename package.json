@@ -46,6 +46,26 @@
         "types": "./dist/lib/index.d.cts",
         "default": "./dist/lib/index.cjs"
       }
+    },
+    "./schemas": {
+      "import": {
+        "types": "./dist/schemas/index.d.ts",
+        "default": "./dist/schemas/index.js"
+      },
+      "require": {
+        "types": "./dist/schemas/index.d.cts",
+        "default": "./dist/schemas/index.cjs"
+      }
+    },
+    "./schemas/*": {
+      "import": {
+        "types": "./dist/schemas/*.d.ts",
+        "default": "./dist/schemas/*.js"
+      },
+      "require": {
+        "types": "./dist/schemas/*.d.cts",
+        "default": "./dist/schemas/*.cjs"
+      }
     }
   },
   "files": [
@@ -54,8 +74,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup",
-    "clean": "rm -rf dist",
+    "build:schemas": "tsx scripts/build-schemas.ts",
+    "build:lib": "tsup",
+    "build": "pnpm build:schemas && pnpm build:lib",
+    "clean": "rm -rf dist src/schemas",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -97,12 +119,15 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^6.0.0",
+    "@famgia/omnify-core": "workspace:*",
+    "@famgia/omnify-typescript": "workspace:*",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "antd": "^6.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4",
     "zod": "^4.3.5"

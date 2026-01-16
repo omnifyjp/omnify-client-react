@@ -45,11 +45,42 @@ export {
   type SelectOption as BankSelectOption,
 } from './components/JapaneseBankField';
 
+// OmnifyForm namespace for convenient component access
+import { JapaneseNameField } from './components/JapaneseNameField';
+import { JapaneseAddressField } from './components/JapaneseAddressField';
+import { JapaneseBankField } from './components/JapaneseBankField';
+
+/**
+ * OmnifyForm - Namespace for Omnify form components
+ * 
+ * @example
+ * ```tsx
+ * <OmnifyForm.JapaneseName schemas={customerSchemas} i18n={customerI18n} prefix="name" />
+ * <OmnifyForm.JapaneseAddress form={form} schemas={customerSchemas} i18n={customerI18n} prefix="address" />
+ * <OmnifyForm.JapaneseBank schemas={customerSchemas} i18n={customerI18n} prefix="bank" />
+ * ```
+ */
+export const OmnifyForm = {
+  JapaneseName: JapaneseNameField,
+  JapaneseAddress: JapaneseAddressField,
+  JapaneseBank: JapaneseBankField,
+} as const;
+
 // =============================================================================
 // Hooks
 // =============================================================================
 
-export { useFormMutation, type UseFormMutationOptions } from './hooks/use-form-mutation';
+export {
+  useFormMutation,
+  type UseFormMutationOptions,
+  type FormMutationRouter,
+  type TranslateFn,
+  type FormFieldError,
+  // Helper functions for Laravel validation errors
+  getFormErrors,
+  getValidationMessage,
+  getFirstValidationError,
+} from './hooks/use-form-mutation';
 
 // =============================================================================
 // Lib - Utilities

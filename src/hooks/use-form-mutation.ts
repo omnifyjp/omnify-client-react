@@ -1,21 +1,41 @@
 /**
  * useFormMutation - Form mutation with auto Laravel error handling
  *
+ * Features:
+ * - Auto parse Laravel validation errors to Ant Design form format
+ * - Support nested field paths (e.g., "items.0.name" → ["items", 0, "name"])
+ * - Auto invalidate queries on success
+ * - Optional redirect after success
+ * - Optional i18n translation for messages
+ *
  * @example
  * ```typescript
- * import { useFormMutation } from '@famgia/omnify-react/hooks';
+ * import { useFormMutation } from '@famgia/omnify-react';
+ * import { useRouter } from 'next/navigation';
+ * import { useTranslations } from 'next-intl';
  *
- * const mutation = useFormMutation({
- *   form,
- *   mutationFn: (data) => axios.post('/api/customers', data),
- *   invalidateKeys: [['customers']],
- *   successMessage: '保存しました',
- * });
+ * function MyForm() {
+ *   const [form] = Form.useForm();
+ *   const router = useRouter();
+ *   const t = useTranslations();
  *
- * <Form form={form} onFinish={mutation.mutate}>
- *   ...
- *   <Button loading={mutation.isPending}>保存</Button>
- * </Form>
+ *   const mutation = useFormMutation({
+ *     form,
+ *     mutationFn: (data) => api.post('/api/customers', data),
+ *     invalidateKeys: [['customers']],
+ *     successMessage: 'messages.saved',
+ *     redirectTo: '/customers',
+ *     router,           // Optional: for redirect
+ *     translateFn: t,   // Optional: for i18n
+ *   });
+ *
+ *   return (
+ *     <Form form={form} onFinish={mutation.mutate}>
+ *       ...
+ *       <Button loading={mutation.isPending}>保存</Button>
+ *     </Form>
+ *   );
+ * }
  * ```
  */
 
@@ -27,6 +47,14 @@ import type { FormInstance } from 'antd';
 // Types
 // =============================================================================
 
+/** Router interface - compatible with Next.js useRouter */
+export interface FormMutationRouter {
+  push: (path: string) => void;
+}
+
+/** Translation function - compatible with next-intl useTranslations */
+export type TranslateFn = (key: string) => string;
+
 export interface UseFormMutationOptions<TData, TResult> {
   /** Ant Design form instance */
   form: FormInstance;
@@ -34,8 +62,14 @@ export interface UseFormMutationOptions<TData, TResult> {
   mutationFn: (data: TData) => Promise<TResult>;
   /** Query keys to invalidate on success */
   invalidateKeys?: readonly (readonly unknown[])[];
-  /** Success message to show */
+  /** Success message to show (will be translated if translateFn provided) */
   successMessage?: string;
+  /** Redirect path after success (requires router) */
+  redirectTo?: string;
+  /** Router instance for redirect (e.g., useRouter from next/navigation) */
+  router?: FormMutationRouter;
+  /** Translation function for messages (e.g., useTranslations from next-intl) */
+  translateFn?: TranslateFn;
   /** Callback on success */
   onSuccess?: (data: TResult) => void;
   /** Callback on error */
@@ -43,30 +77,68 @@ export interface UseFormMutationOptions<TData, TResult> {
 }
 
 // =============================================================================
-// Laravel Error Helpers
+// Laravel Error Helpers (exported for reuse)
 // =============================================================================
+
+/** Form field error for Ant Design */
+export interface FormFieldError {
+  name: string | (string | number)[];
+  errors: string[];
+}
 
 /**
  * Parse Laravel validation errors to Ant Design form format
+ *
+ * Supports:
+ * - Simple fields: "email" → name: "email"
+ * - Dot notation: "user.name" → name: ["user", "name"]
+ * - Array notation: "items.0.name" → name: ["items", 0, "name"]
+ *
+ * @example
+ * form.setFields(getFormErrors(error))
  */
-function getFormErrors(error: unknown): { name: string; errors: string[] }[] {
+export function getFormErrors(error: unknown): FormFieldError[] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = (error as any)?.response?.data;
   const errors = data?.errors;
 
   if (!errors || typeof errors !== 'object') return [];
 
-  return Object.entries(errors).map(([name, messages]) => ({
-    name,
-    errors: Array.isArray(messages) ? messages : [String(messages)],
+  return Object.entries(errors).map(([fieldName, messages]) => ({
+    // Convert "user.name" or "items.0.name" to array path for Ant Design
+    name: fieldName.includes('.')
+      ? fieldName.split('.').map((part) => (/^\d+$/.test(part) ? parseInt(part, 10) : part))
+      : fieldName,
+    errors: Array.isArray(messages) ? (messages as string[]) : [String(messages)],
   }));
 }
 
 /**
- * Get general validation message from Laravel response
+ * Get general validation message from Laravel 422 response
+ * @example "The name_lastname field is required. (and 3 more errors)"
  */
-function getValidationMessage(error: unknown): string | null {
-  const data = (error as any)?.response?.data;
-  return data?.message || null;
+export function getValidationMessage(error: unknown): string | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const axiosError = error as any;
+
+  // Only for 422 validation errors
+  if (axiosError?.response?.status !== 422) return null;
+
+  return axiosError?.response?.data?.message ?? null;
+}
+
+/**
+ * Get first error message from validation errors
+ * Useful when field names don't match form fields
+ */
+export function getFirstValidationError(error: unknown): string | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const errors = (error as any)?.response?.data?.errors;
+
+  if (!errors || typeof errors !== 'object') return null;
+
+  const firstField = Object.keys(errors)[0];
+  return firstField ? errors[firstField][0] : null;
 }
 
 // =============================================================================
@@ -78,6 +150,9 @@ export function useFormMutation<TData, TResult = unknown>({
   mutationFn,
   invalidateKeys = [],
   successMessage,
+  redirectTo,
+  router,
+  translateFn,
   onSuccess,
   onError,
 }: UseFormMutationOptions<TData, TResult>) {
@@ -92,9 +167,15 @@ export function useFormMutation<TData, TResult = unknown>({
         queryClient.invalidateQueries({ queryKey: [...key] });
       });
 
-      // Show success message
+      // Show success message (translate if translateFn provided)
       if (successMessage) {
-        message.success(successMessage);
+        const msg = translateFn ? translateFn(successMessage) : successMessage;
+        message.success(msg);
+      }
+
+      // Redirect if router and redirectTo provided
+      if (redirectTo && router) {
+        router.push(redirectTo);
       }
 
       // Custom callback
@@ -107,7 +188,7 @@ export function useFormMutation<TData, TResult = unknown>({
         form.setFields(formErrors);
       }
 
-      // Show general error message
+      // Show general validation message (from Laravel)
       const validationMessage = getValidationMessage(error);
       if (validationMessage) {
         message.error(validationMessage);

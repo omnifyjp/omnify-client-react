@@ -32,10 +32,14 @@ __export(src_exports, {
   KATAKANA_HALF_WIDTH: () => KATAKANA_HALF_WIDTH,
   KATAKANA_PATTERN: () => KATAKANA_PATTERN,
   KATAKANA_WITH_NUMBERS: () => KATAKANA_WITH_NUMBERS,
+  OmnifyForm: () => OmnifyForm,
   addZodMessages: () => addZodMessages,
   createKanaRegex: () => createKanaRegex,
+  getFirstValidationError: () => getFirstValidationError,
+  getFormErrors: () => getFormErrors,
   getKanaErrorMessage: () => getKanaErrorMessage,
   getKanaPattern: () => getKanaPattern,
+  getValidationMessage: () => getValidationMessage,
   getZodFallbackLocale: () => getZodFallbackLocale,
   getZodLocale: () => getZodLocale,
   getZodMessage: () => getZodMessage,
@@ -747,20 +751,31 @@ function getFormErrors(error) {
   const data = error?.response?.data;
   const errors = data?.errors;
   if (!errors || typeof errors !== "object") return [];
-  return Object.entries(errors).map(([name, messages]) => ({
-    name,
+  return Object.entries(errors).map(([fieldName, messages]) => ({
+    // Convert "user.name" or "items.0.name" to array path for Ant Design
+    name: fieldName.includes(".") ? fieldName.split(".").map((part) => /^\d+$/.test(part) ? parseInt(part, 10) : part) : fieldName,
     errors: Array.isArray(messages) ? messages : [String(messages)]
   }));
 }
 function getValidationMessage(error) {
-  const data = error?.response?.data;
-  return data?.message || null;
+  const axiosError = error;
+  if (axiosError?.response?.status !== 422) return null;
+  return axiosError?.response?.data?.message ?? null;
+}
+function getFirstValidationError(error) {
+  const errors = error?.response?.data?.errors;
+  if (!errors || typeof errors !== "object") return null;
+  const firstField = Object.keys(errors)[0];
+  return firstField ? errors[firstField][0] : null;
 }
 function useFormMutation({
   form,
   mutationFn,
   invalidateKeys = [],
   successMessage,
+  redirectTo,
+  router,
+  translateFn,
   onSuccess,
   onError
 }) {
@@ -773,7 +788,11 @@ function useFormMutation({
         queryClient.invalidateQueries({ queryKey: [...key] });
       });
       if (successMessage) {
-        message2.success(successMessage);
+        const msg = translateFn ? translateFn(successMessage) : successMessage;
+        message2.success(msg);
+      }
+      if (redirectTo && router) {
+        router.push(redirectTo);
       }
       onSuccess?.(data);
     },
@@ -967,6 +986,13 @@ var kanaRules = {
     any: KANA_ANY_PATTERN
   }
 };
+
+// src/index.ts
+var OmnifyForm = {
+  JapaneseName: JapaneseNameField,
+  JapaneseAddress: JapaneseAddressField,
+  JapaneseBank: JapaneseBankField
+};
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   HIRAGANA,
@@ -981,10 +1007,14 @@ var kanaRules = {
   KATAKANA_HALF_WIDTH,
   KATAKANA_PATTERN,
   KATAKANA_WITH_NUMBERS,
+  OmnifyForm,
   addZodMessages,
   createKanaRegex,
+  getFirstValidationError,
+  getFormErrors,
   getKanaErrorMessage,
   getKanaPattern,
+  getValidationMessage,
   getZodFallbackLocale,
   getZodLocale,
   getZodMessage,

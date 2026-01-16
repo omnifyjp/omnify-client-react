@@ -20,6 +20,9 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/hooks/index.ts
 var hooks_exports = {};
 __export(hooks_exports, {
+  getFirstValidationError: () => getFirstValidationError,
+  getFormErrors: () => getFormErrors,
+  getValidationMessage: () => getValidationMessage,
   useFormMutation: () => useFormMutation
 });
 module.exports = __toCommonJS(hooks_exports);
@@ -31,20 +34,31 @@ function getFormErrors(error) {
   const data = error?.response?.data;
   const errors = data?.errors;
   if (!errors || typeof errors !== "object") return [];
-  return Object.entries(errors).map(([name, messages]) => ({
-    name,
+  return Object.entries(errors).map(([fieldName, messages]) => ({
+    // Convert "user.name" or "items.0.name" to array path for Ant Design
+    name: fieldName.includes(".") ? fieldName.split(".").map((part) => /^\d+$/.test(part) ? parseInt(part, 10) : part) : fieldName,
     errors: Array.isArray(messages) ? messages : [String(messages)]
   }));
 }
 function getValidationMessage(error) {
-  const data = error?.response?.data;
-  return data?.message || null;
+  const axiosError = error;
+  if (axiosError?.response?.status !== 422) return null;
+  return axiosError?.response?.data?.message ?? null;
+}
+function getFirstValidationError(error) {
+  const errors = error?.response?.data?.errors;
+  if (!errors || typeof errors !== "object") return null;
+  const firstField = Object.keys(errors)[0];
+  return firstField ? errors[firstField][0] : null;
 }
 function useFormMutation({
   form,
   mutationFn,
   invalidateKeys = [],
   successMessage,
+  redirectTo,
+  router,
+  translateFn,
   onSuccess,
   onError
 }) {
@@ -57,7 +71,11 @@ function useFormMutation({
         queryClient.invalidateQueries({ queryKey: [...key] });
       });
       if (successMessage) {
-        message.success(successMessage);
+        const msg = translateFn ? translateFn(successMessage) : successMessage;
+        message.success(msg);
+      }
+      if (redirectTo && router) {
+        router.push(redirectTo);
       }
       onSuccess?.(data);
     },
@@ -76,6 +94,9 @@ function useFormMutation({
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  getFirstValidationError,
+  getFormErrors,
+  getValidationMessage,
   useFormMutation
 });
 //# sourceMappingURL=index.cjs.map

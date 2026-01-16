@@ -1,40 +1,75 @@
 
-> @famgia/omnify-react@0.0.1 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-react
+> @famgia/omnify-react@0.0.1 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
+> pnpm build:schemas && pnpm build:lib
+
+
+> @famgia/omnify-react@0.0.1 build:schemas /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
+> tsx scripts/build-schemas.ts
+
+🔧 Building SSO schema types...
+✅ Copied SSO schemas
+📦 Loaded 6 schemas
+  📄 base/User.ts
+  📄 base/Permission.ts
+  📄 base/Role.ts
+  📄 base/RolePermission.ts
+  📄 base/Team.ts
+  📄 base/TeamPermission.ts
+  📄 User.ts
+  📄 Permission.ts
+  📄 Role.ts
+  📄 RolePermission.ts
+  📄 Team.ts
+  📄 TeamPermission.ts
+  📄 common.ts
+  📄 i18n.ts
+  📄 index.ts
+✅ Generated 15 TypeScript files
+🧹 Cleaned up temporary schemas
+✨ Done!
+
+> @famgia/omnify-react@0.0.1 build:lib /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
 > tsup
 
-[34mCLI[39m Building entry: {"index":"src/index.ts","components/index":"src/components/index.ts","hooks/index":"src/hooks/index.ts","lib/index":"src/lib/index.ts"}
+[34mCLI[39m Building entry: {"index":"src/index.ts","components/index":"src/components/index.ts","hooks/index":"src/hooks/index.ts","lib/index":"src/lib/index.ts","schemas/index":"src/schemas/index.ts"}
 [34mCLI[39m Using tsconfig: tsconfig.json
 [34mCLI[39m tsup v8.5.1
-[34mCLI[39m Using tsup config: /Users/f.satoshi/Herd/omnify-ts/packages/omnify-react/tsup.config.ts
+[34mCLI[39m Using tsup config: /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react/tsup.config.ts
 [34mCLI[39m Target: es2022
 [34mCLI[39m Cleaning output folder
 [34mESM[39m Build start
 [34mCJS[39m Build start
-[32mESM[39m [1mdist/hooks/index.js          [22m[32m1.39 KB[39m
 [32mESM[39m [1mdist/components/index.js     [22m[32m26.54 KB[39m
-[32mESM[39m [1mdist/index.js                [22m[32m34.44 KB[39m
 [32mESM[39m [1mdist/lib/index.js            [22m[32m15.65 KB[39m
-[32mESM[39m [1mdist/hooks/index.js.map      [22m[32m4.52 KB[39m
+[32mESM[39m [1mdist/schemas/index.js        [22m[32m13.18 KB[39m
+[32mESM[39m [1mdist/index.js                [22m[32m35.35 KB[39m
+[32mESM[39m [1mdist/hooks/index.js          [22m[32m2.14 KB[39m
+[32mESM[39m [1mdist/schemas/index.js.map    [22m[32m45.56 KB[39m
 [32mESM[39m [1mdist/components/index.js.map [22m[32m47.24 KB[39m
-[32mESM[39m [1mdist/index.js.map            [22m[32m64.59 KB[39m
 [32mESM[39m [1mdist/lib/index.js.map        [22m[32m27.86 KB[39m
-[32mESM[39m ⚡️ Build success in 27ms
+[32mESM[39m [1mdist/index.js.map            [22m[32m71.46 KB[39m
+[32mESM[39m [1mdist/hooks/index.js.map      [22m[32m7.97 KB[39m
+[32mESM[39m ⚡️ Build success in 37ms
 [32mCJS[39m [1mdist/components/index.cjs     [22m[32m29.73 KB[39m
-[32mCJS[39m [1mdist/hooks/index.cjs          [22m[32m2.47 KB[39m
-[32mCJS[39m [1mdist/index.cjs                [22m[32m38.77 KB[39m
+[32mCJS[39m [1mdist/hooks/index.cjs          [22m[32m3.36 KB[39m
 [32mCJS[39m [1mdist/lib/index.cjs            [22m[32m17.70 KB[39m
+[32mCJS[39m [1mdist/index.cjs                [22m[32m39.86 KB[39m
+[32mCJS[39m [1mdist/schemas/index.cjs        [22m[32m16.76 KB[39m
 [32mCJS[39m [1mdist/components/index.cjs.map [22m[32m47.18 KB[39m
-[32mCJS[39m [1mdist/hooks/index.cjs.map      [22m[32m4.76 KB[39m
-[32mCJS[39m [1mdist/index.cjs.map            [22m[32m66.49 KB[39m
+[32mCJS[39m [1mdist/hooks/index.cjs.map      [22m[32m8.43 KB[39m
 [32mCJS[39m [1mdist/lib/index.cjs.map        [22m[32m28.48 KB[39m
-[32mCJS[39m ⚡️ Build success in 27ms
+[32mCJS[39m [1mdist/index.cjs.map            [22m[32m71.04 KB[39m
+[32mCJS[39m [1mdist/schemas/index.cjs.map    [22m[32m48.13 KB[39m
+[32mCJS[39m ⚡️ Build success in 37ms
 [34mDTS[39m Build start
-[32mDTS[39m ⚡️ Build success in 2780ms
-[32mDTS[39m [1mdist/index.d.ts             [22m[32m1007.00 B[39m
+[32mDTS[39m ⚡️ Build success in 3432ms
+[32mDTS[39m [1mdist/index.d.ts             [22m[32m2.17 KB[39m
+[32mDTS[39m [1mdist/schemas/index.d.ts     [22m[32m22.64 KB[39m
 [32mDTS[39m [1mdist/components/index.d.ts  [22m[32m3.54 KB[39m
-[32mDTS[39m [1mdist/hooks/index.d.ts       [22m[32m907.00 B[39m
+[32mDTS[39m [1mdist/hooks/index.d.ts       [22m[32m2.50 KB[39m
 [32mDTS[39m [1mdist/lib/index.d.ts         [22m[32m6.46 KB[39m
-[32mDTS[39m [1mdist/index.d.cts            [22m[32m1010.00 B[39m
+[32mDTS[39m [1mdist/index.d.cts            [22m[32m2.17 KB[39m
+[32mDTS[39m [1mdist/schemas/index.d.cts    [22m[32m22.64 KB[39m
 [32mDTS[39m [1mdist/components/index.d.cts [22m[32m3.54 KB[39m
-[32mDTS[39m [1mdist/hooks/index.d.cts      [22m[32m907.00 B[39m
+[32mDTS[39m [1mdist/hooks/index.d.cts      [22m[32m2.50 KB[39m
 [32mDTS[39m [1mdist/lib/index.d.cts        [22m[32m6.46 KB[39m

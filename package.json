@@ -1,6 +1,6 @@
 {
   "name": "@famgia/omnify-react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React runtime components, hooks, and utilities for Omnify schemas",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -46,26 +46,6 @@
         "types": "./dist/lib/index.d.cts",
         "default": "./dist/lib/index.cjs"
       }
-    },
-    "./schemas": {
-      "import": {
-        "types": "./dist/schemas/index.d.ts",
-        "default": "./dist/schemas/index.js"
-      },
-      "require": {
-        "types": "./dist/schemas/index.d.cts",
-        "default": "./dist/schemas/index.cjs"
-      }
-    },
-    "./schemas/*": {
-      "import": {
-        "types": "./dist/schemas/*.d.ts",
-        "default": "./dist/schemas/*.js"
-      },
-      "require": {
-        "types": "./dist/schemas/*.d.cts",
-        "default": "./dist/schemas/*.cjs"
-      }
     }
   },
   "files": [
@@ -74,14 +54,12 @@
     "README.md"
   ],
   "scripts": {
-    "build:schemas": "tsx scripts/build-schemas.ts",
-    "build:lib": "tsup",
-    "build": "pnpm build:schemas && pnpm build:lib",
-    "clean": "rm -rf dist src/schemas",
+    "build": "tsup",
+    "postinstall": "node scripts/postinstall.cjs",
+    "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "postinstall": "node scripts/postinstall.cjs"
+    "test:watch": "vitest"
   },
   "keywords": [
     "omnify",
@@ -119,8 +97,6 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^6.0.0",
-    "@famgia/omnify-core": "workspace:*",
-    "@famgia/omnify-typescript": "workspace:*",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "antd": "^6.1.4",

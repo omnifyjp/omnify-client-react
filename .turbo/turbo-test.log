@@ -5,12 +5,12 @@
 
  RUN  v3.2.4 /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
 
- ✓ src/lib/zod-i18n.test.ts (12 tests) 3ms
- ✓ src/lib/rules/kana.test.ts (22 tests) 11ms
- ✓ src/hooks/use-form-mutation.test.ts (13 tests) 3ms
+ ✓ src/lib/zod-i18n.test.ts (12 tests) 7ms
+ ✓ src/lib/rules/kana.test.ts (22 tests) 66ms
+ ✓ src/hooks/use-form-mutation.test.ts (13 tests) 7ms
 
  Test Files  3 passed (3)
       Tests  47 passed (47)
-   Start at  06:55:10
-   Duration  2.17s (transform 140ms, setup 0ms, collect 1.94s, tests 17ms, environment 0ms, prepare 260ms)
+   Start at  10:11:14
+   Duration  4.66s (transform 123ms, setup 0ms, collect 3.72s, tests 80ms, environment 1ms, prepare 777ms)
 

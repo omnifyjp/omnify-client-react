@@ -1,40 +1,40 @@
 
-> @famgia/omnify-react@0.0.3 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
+> @famgia/omnify-react@0.0.4 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
 > tsup
 
-CLI Building entry: {"index":"src/index.ts","components/index":"src/components/index.ts","hooks/index":"src/hooks/index.ts","lib/index":"src/lib/index.ts"}
-CLI Using tsconfig: tsconfig.json
-CLI tsup v8.5.1
-CLI Using tsup config: /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react/tsup.config.ts
-CLI Target: es2022
-CLI Cleaning output folder
-ESM Build start
-CJS Build start
-CJS dist/index.cjs                39.86 KB
-CJS dist/hooks/index.cjs          3.36 KB
-CJS dist/lib/index.cjs            17.70 KB
-CJS dist/components/index.cjs     29.73 KB
-CJS dist/index.cjs.map            71.04 KB
-CJS dist/lib/index.cjs.map        28.48 KB
-CJS dist/hooks/index.cjs.map      8.43 KB
-CJS dist/components/index.cjs.map 47.18 KB
-CJS ⚡️ Build success in 131ms
-ESM dist/hooks/index.js          2.14 KB
-ESM dist/index.js                35.35 KB
-ESM dist/lib/index.js            15.65 KB
-ESM dist/components/index.js     26.54 KB
-ESM dist/index.js.map            71.46 KB
-ESM dist/hooks/index.js.map      7.97 KB
-ESM dist/lib/index.js.map        27.86 KB
-ESM dist/components/index.js.map 47.24 KB
-ESM ⚡️ Build success in 133ms
-DTS Build start
-DTS ⚡️ Build success in 6686ms
-DTS dist/index.d.ts             2.17 KB
-DTS dist/components/index.d.ts  3.54 KB
-DTS dist/hooks/index.d.ts       2.50 KB
-DTS dist/lib/index.d.ts         6.46 KB
-DTS dist/index.d.cts            2.17 KB
-DTS dist/components/index.d.cts 3.54 KB
-DTS dist/hooks/index.d.cts      2.50 KB
-DTS dist/lib/index.d.cts        6.46 KB
+[34mCLI[39m Building entry: {"index":"src/index.ts","components/index":"src/components/index.ts","hooks/index":"src/hooks/index.ts","lib/index":"src/lib/index.ts"}
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Using tsup config: /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react/tsup.config.ts
+[34mCLI[39m Target: es2022
+[34mCLI[39m Cleaning output folder
+[34mESM[39m Build start
+[34mCJS[39m Build start
+[32mCJS[39m [1mdist/lib/index.cjs            [22m[32m17.70 KB[39m
+[32mCJS[39m [1mdist/components/index.cjs     [22m[32m29.73 KB[39m
+[32mCJS[39m [1mdist/index.cjs                [22m[32m39.86 KB[39m
+[32mCJS[39m [1mdist/hooks/index.cjs          [22m[32m3.36 KB[39m
+[32mCJS[39m [1mdist/lib/index.cjs.map        [22m[32m28.48 KB[39m
+[32mCJS[39m [1mdist/components/index.cjs.map [22m[32m47.18 KB[39m
+[32mCJS[39m [1mdist/hooks/index.cjs.map      [22m[32m8.43 KB[39m
+[32mCJS[39m [1mdist/index.cjs.map            [22m[32m71.04 KB[39m
+[32mCJS[39m ⚡️ Build success in 35ms
+[32mESM[39m [1mdist/hooks/index.js          [22m[32m2.14 KB[39m
+[32mESM[39m [1mdist/index.js                [22m[32m35.35 KB[39m
+[32mESM[39m [1mdist/lib/index.js            [22m[32m15.65 KB[39m
+[32mESM[39m [1mdist/components/index.js     [22m[32m26.54 KB[39m
+[32mESM[39m [1mdist/lib/index.js.map        [22m[32m27.86 KB[39m
+[32mESM[39m [1mdist/hooks/index.js.map      [22m[32m7.97 KB[39m
+[32mESM[39m [1mdist/components/index.js.map [22m[32m47.24 KB[39m
+[32mESM[39m [1mdist/index.js.map            [22m[32m71.46 KB[39m
+[32mESM[39m ⚡️ Build success in 41ms
+[34mDTS[39m Build start
+[32mDTS[39m ⚡️ Build success in 4047ms
+[32mDTS[39m [1mdist/index.d.ts             [22m[32m2.17 KB[39m
+[32mDTS[39m [1mdist/components/index.d.ts  [22m[32m3.54 KB[39m
+[32mDTS[39m [1mdist/hooks/index.d.ts       [22m[32m2.50 KB[39m
+[32mDTS[39m [1mdist/lib/index.d.ts         [22m[32m6.46 KB[39m
+[32mDTS[39m [1mdist/index.d.cts            [22m[32m2.17 KB[39m
+[32mDTS[39m [1mdist/components/index.d.cts [22m[32m3.54 KB[39m
+[32mDTS[39m [1mdist/hooks/index.d.cts      [22m[32m2.50 KB[39m
+[32mDTS[39m [1mdist/lib/index.d.cts        [22m[32m6.46 KB[39m

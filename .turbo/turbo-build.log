@@ -1,5 +1,5 @@
 
-> @famgia/omnify-react@0.0.4 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
+> @famgia/omnify-react@0.0.5 build /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
 > tsup
 
 [34mCLI[39m Building entry: {"index":"src/index.ts","components/index":"src/components/index.ts","hooks/index":"src/hooks/index.ts","lib/index":"src/lib/index.ts"}
@@ -10,26 +10,26 @@
 [34mCLI[39m Cleaning output folder
 [34mESM[39m Build start
 [34mCJS[39m Build start
-[32mCJS[39m [1mdist/lib/index.cjs            [22m[32m17.70 KB[39m
-[32mCJS[39m [1mdist/components/index.cjs     [22m[32m29.73 KB[39m
-[32mCJS[39m [1mdist/index.cjs                [22m[32m39.86 KB[39m
 [32mCJS[39m [1mdist/hooks/index.cjs          [22m[32m3.36 KB[39m
+[32mCJS[39m [1mdist/components/index.cjs     [22m[32m29.73 KB[39m
+[32mCJS[39m [1mdist/lib/index.cjs            [22m[32m17.70 KB[39m
+[32mCJS[39m [1mdist/index.cjs                [22m[32m39.86 KB[39m
 [32mCJS[39m [1mdist/lib/index.cjs.map        [22m[32m28.48 KB[39m
 [32mCJS[39m [1mdist/components/index.cjs.map [22m[32m47.18 KB[39m
 [32mCJS[39m [1mdist/hooks/index.cjs.map      [22m[32m8.43 KB[39m
 [32mCJS[39m [1mdist/index.cjs.map            [22m[32m71.04 KB[39m
-[32mCJS[39m ⚡️ Build success in 35ms
-[32mESM[39m [1mdist/hooks/index.js          [22m[32m2.14 KB[39m
+[32mCJS[39m ⚡️ Build success in 39ms
 [32mESM[39m [1mdist/index.js                [22m[32m35.35 KB[39m
+[32mESM[39m [1mdist/hooks/index.js          [22m[32m2.14 KB[39m
 [32mESM[39m [1mdist/lib/index.js            [22m[32m15.65 KB[39m
 [32mESM[39m [1mdist/components/index.js     [22m[32m26.54 KB[39m
+[32mESM[39m [1mdist/index.js.map            [22m[32m71.46 KB[39m
+[32mESM[39m [1mdist/components/index.js.map [22m[32m47.24 KB[39m
 [32mESM[39m [1mdist/lib/index.js.map        [22m[32m27.86 KB[39m
 [32mESM[39m [1mdist/hooks/index.js.map      [22m[32m7.97 KB[39m
-[32mESM[39m [1mdist/components/index.js.map [22m[32m47.24 KB[39m
-[32mESM[39m [1mdist/index.js.map            [22m[32m71.46 KB[39m
-[32mESM[39m ⚡️ Build success in 41ms
+[32mESM[39m ⚡️ Build success in 44ms
 [34mDTS[39m Build start
-[32mDTS[39m ⚡️ Build success in 4047ms
+[32mDTS[39m ⚡️ Build success in 4159ms
 [32mDTS[39m [1mdist/index.d.ts             [22m[32m2.17 KB[39m
 [32mDTS[39m [1mdist/components/index.d.ts  [22m[32m3.54 KB[39m
 [32mDTS[39m [1mdist/hooks/index.d.ts       [22m[32m2.50 KB[39m

@@ -1,6 +1,6 @@
 {
   "name": "@famgia/omnify-react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React runtime components, hooks, and utilities for Omnify schemas",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -1,5 +1,4 @@
 
-
-> @famgia/omnify-react@0.0.9 typecheck /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
+> @famgia/omnify-react@2.0.1 typecheck /Users/f.satoshi/Herd/omnify-ts/packages/omnify-client-react
 > tsc --noEmit
 

@@ -1,1 +1,47 @@
+<<<<<<< HEAD
 .turbo/
+=======
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Lock files (use workspace root lock)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.turbo/
+*.tgz
+>>>>>>> f9d06b6f8c0f97dd5662610ee06e77253ec75213
